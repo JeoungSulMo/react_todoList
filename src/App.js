@@ -59,10 +59,24 @@ class App extends React.Component {
     });
   };
 
+  // 제거
+  removeItem = id => {
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.filter(todo => todo.id !== id)
+    });
+  };
+
   render() {
     // this에대한 확실한 이해가 필요
     const { input, todos } = this.state;
-    const { handleChange, handleCreate, handleKeyPress, handleToggle } = this;
+    const {
+      handleChange,
+      handleCreate,
+      handleKeyPress,
+      handleToggle,
+      removeItem
+    } = this;
     return (
       <Template
         form={
@@ -74,7 +88,11 @@ class App extends React.Component {
           />
         }
       >
-        <TodoItemList todos={todos} onToggle={handleToggle} />
+        <TodoItemList
+          todos={todos}
+          onToggle={handleToggle}
+          onRemove={removeItem}
+        />
       </Template>
     );
   }
